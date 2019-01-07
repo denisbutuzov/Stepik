@@ -6,11 +6,11 @@
 long long&& triangular_number(long long&& n)
 {
 	auto result = (sqrt(n*8+1)-1)/2;
-	long long number = 0;
+	auto number = static_cast<long long>(result);
 
-	if(result - static_cast<long long>(result) == 0)
+	if(result - number != 0)
 	{
-		number = static_cast<long long>(result);
+		number = 0;
 	}
 
 	return std::move(number);
