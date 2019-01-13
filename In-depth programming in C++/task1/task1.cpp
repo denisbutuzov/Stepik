@@ -3,7 +3,7 @@
 #include <regex>
 #include <cmath>
 
-long long&& triangular_number(long long&& n)
+long long &&triangular_number(long long &&n)
 {
 	auto result = (sqrt(n*8+1)-1)/2;
 	auto number = static_cast<long long>(result);
@@ -16,7 +16,7 @@ long long&& triangular_number(long long&& n)
 	return std::move(number);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	std::string in_str;
 	std::cin >> in_str;
