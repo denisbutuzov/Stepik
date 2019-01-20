@@ -47,7 +47,8 @@ std::tuple<bool, int, std::vector<double>> parse_string(std::list<std::string> &
 
 		while(string_list.size() > 0)
 		{
-			if(std::regex_match(string_list.front(), std::regex("^[-+]?[0-9]*[.,]?[0-9]+(?:[eE][-+]?[0-9]+)?$")))
+			if(std::regex_match(string_list.front(),
+					    std::regex("^[-+]?[0-9]*[.,]?[0-9]+(?:[eE][-+]?[0-9]+)?$")))
 			{
 				elements.push_back(std::stod(string_list.front()));
 				string_list.pop_front();
@@ -58,7 +59,6 @@ std::tuple<bool, int, std::vector<double>> parse_string(std::list<std::string> &
 				break;
 			}
 		}
-
 	}
 	else
 	{
