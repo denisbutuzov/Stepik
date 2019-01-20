@@ -3,40 +3,39 @@
 #include <algorithm>
 #include <vector>
 #include <utility>
-#include <exception>
 #include <regex>
 
 std::pair<int, std::vector<double>> parse_string(std::string &&string)
 {
 	std::string delimiter(" ");
+	std::string del("\\n");
 	std::size_t pos;
 
 	double number = -1;
 	std::vector<double> parsed_sequence;
-	try
+	
+	while((pos = string.find(del)) != std::string::npos)
 	{
-		while((pos = string.find(delimiter)) != std::string::npos)
+		string.replace(pos, del.length(), delimiter);
+	}
+
+	while((pos = string.find(delimiter)) != std::string::npos)
+	{
+		if(number == -1)
 		{
-			if(number == -1)
+			number = std::stod(string.substr(0, pos));
+			if(number - static_cast<int>(number) != 0)
 			{
-				number = std::stod(string.substr(0, pos));
-				if(number - static_cast<int>(number) != 0)
-				{
-					number = 0;
-				}
+				number = 0;
 			}
-			else
-			{
-				parsed_sequence.push_back(std::stod(string.substr(0, pos)));
-			}
-			string.erase(0, pos + delimiter.length());
 		}
-		parsed_sequence.push_back(std::stod(string));
+		else
+		{
+			parsed_sequence.push_back(std::stod(string.substr(0, pos)));
+		}
+		string.erase(0, pos + delimiter.length());
 	}
-	catch(std::exception const &e)
-	{
-		number = 0;
-	}
+	parsed_sequence.push_back(std::stod(string));
 
 	return std::move(std::pair<int, std::vector<double>> {static_cast<int>(number), parsed_sequence});
 }
